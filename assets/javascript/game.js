@@ -18,10 +18,10 @@
 // computer ends game 
 // computer adds a win to win counter score
 // game restarts again for user
-
+console.log(words)
 var words = ["playstation", "microsoft", "nintendo", "sega", "xbox", "sony", "switch", "pc", "vr", "streaming"];
 
-const maxtries = 6;
+const maxTries = 6;
 
 var guessedLetters = [];
 var wordList;
@@ -130,3 +130,4 @@ function processWin() {
 };
 
 
+updateDisplay();
