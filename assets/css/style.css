@@ -28,9 +28,9 @@ h4,h5,h6 {
 
 .game-column {
     padding-top: 20px;
-    border: 3px dashed cornflowerblue;
+    border: 3px solid crimson;
     text-align: center;
     margin-top: 20px;
     min-height: 500px;
-    background-color: #eee;
+    background-color:black;
 }

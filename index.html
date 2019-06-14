@@ -6,20 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Word Guess Game</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 </head>
 
 <body>
     <div class="container">
         <img id="background-image" src="assets/images/persona.original.jpg" alt="Word Guess Game Background Image">
+        <div class="jumbotron">
+            <h1 class="display-4">Gaming Devices And Companies</h1>
+            <p class="lead">Words are all related to gaming consoles and companies.</p>
+        </div>
+
         <div class="row">
             <div class="col-md-6 game-column">
                 <img id="losing-image" src="assets/images/persona-5-death.jpg" alt="Game Over Image">
-                <img id="winning-image" src="assets/images/persona-5-phantom-thieves.jpg.optimal.jpg" alt="Winning Image">
+                <img id="winning-image" src="assets/images/persona-5-phantom-thieves.jpg.optimal.jpg"
+                    alt="Winning Image">
                 <h2 id="pressTryAgain">Press Try Again</h2>
                 <img id="wordGuessGameImage" src="" alt="">
             </div>
@@ -33,12 +39,11 @@
                 <h6 id="remainingGuesses"></h6>
                 <h4>Letters Guessed</h4>
                 <h3 id="guessedLetters"></h3>
-
             </div>
         </div>
     </div>
-    <script type="text/javascript"  charset="utf-8" src="assets/javascript/game.js"></script>
-    
-    </body>
+    <script type="text/javascript" charset="utf-8" src="assets/javascript/game.js"></script>
+
+</body>
 
 </html>

@@ -21,28 +21,31 @@
 
 var words = ["playstation", "microsoft", "nintendo", "sega", "xbox", "sony", "switch", "pc", "vr", "streaming"];
 
-const maxTries = 6;
+const maxTries = 11;
 
 var guessedLetters = [];
-var wordList;
 var guessingWord = [];
-var remainingGuesses = 0;
-var gameStarts = false;
+var remainingGuesses = maxTries;
+var gameStarts = true;
 var gameFinished = false;
 var wins = 0;
 
+var wordSelected = words[Math.floor(Math.random() * (words.length))];
+for (var i = 0; i < wordSelected.length; i++) {
+    guessingWord.push("_");
+}
 function resetGame() {
     remainingGuesses = maxTries;
     gameStarts = false;
 
-    wordList = Math.floor(Math.random() * (wordSelected.length));
+    wordSelected = words[Math.floor(Math.random() * (words.length))];
 
     guessedLetters = [];
     guessingWord = [];
 
     document.getElementById("wordGuessGameImage").src = "";
 
-    for (var i = 0; i < wordSelected[wordList].length; i++) {
+    for (var i = 0; i < wordSelected.length; i++) {
         guessingWord.push("_");
     }
 
@@ -56,19 +59,15 @@ function resetGame() {
 function updateDisplay() {
     document.getElementById("totalWins").innerText = wins;
     document.getElementById("currentWord").innerText = "";
-    for (var i = 0; i < guessingWord.length; i++) {
-        document.getElementById("currentWord").innerText += guessingWord[i];
-    }
+    document.getElementById("currentWord").innerText += guessingWord;
     document.getElementById("remainingGuesses").innerText = remainingGuesses;
     document.getElementById("guessedLetters").innerText = guessedLetters;
-}; 
-    function processLose() {
-    if (remainingGuesses <= 0) {
-        document.getElementById("losing-image").style.cssText = "display: block";
-        document.getElementById("pressTryAgain").style.cssText = "display :block";
-        gameFinished = true;
-    }
-    }
+};
+function processLoss() {
+    document.getElementById("losing-image").style.cssText = "display: block";
+    document.getElementById("pressTryAgain").style.cssText = "display :block";
+    gameFinished = true;
+};
 function updateWordGuessGameImage() {
     document.getElementById("wordGuessGameImage").src = "assets/images/" + (maxTries - remainingGuesses) + ".jpg";
 };
@@ -89,45 +88,40 @@ function guess(letter) {
         if (!gameStarts) {
             gameStarts = true;
         }
-
-        if (guessedLetters.indexOf(letter) === -1) {
-            guessedLetters.push(letter);
+        if (wordSelected.indexOf(letter) != -1) {
             processGuess(letter);
+            guessedLetters.push(letter);
+            remainingGuesses -= 1;
         }
-
-
+        else if (guessedLetters.indexOf(letter) === -1) {
+            guessedLetters.push(letter);
+            remainingGuesses -= 1;
+        }
+        if (remainingGuesses == 0) { processLoss() }
+        var winner = true;
+        for (var i = 0; i < wordSelected.length; i++) {
+            if (wordSelected[i] != guessingWord[i]) {
+                winner = false;
+            }
+        }
+        if (winner) processWin();
+        updateDisplay();
     }
-
-    updateDisplay();
-    processWin();
 };
 
 function processGuess(letter) {
-    var positions = [];
-    for (var i = 0; i < wordSelected[wordList].length; i++) {
-        if (wordSelected[wordList][i] === letter) {
-            positions.push(i);
-        }
-    }
-
-    if (positions.length <= 0) {
-        remainingGuesses--;
-        updateWordGuessGameImage();
-    } else {
-
-        for (var i = 0; i < positions.length; i++) {
-            guessingWord[positions[i]] = letter;
+    for (var i = 0; i < wordSelected.length; i++) {
+        if (wordSelected[i] === letter) {
+            guessingWord[i] = letter;
         }
     }
 };
 
 function processWin() {
-    if (guessingWord.indexOf("_") === -1) {
-        document.getElementById("winning-image").style.cssText = "display: block";
-        document.getElementById("pressTryAgain").style.cssText = "display: block";
-        wins++;
-        gameFinished = true;
-    }
+    document.getElementById("winning-image").style.cssText = "display: block";
+    document.getElementById("pressTryAgain").style.cssText = "display: block";
+    wins++;
+    gameFinished = true;
 };
 
 
