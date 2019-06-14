@@ -18,7 +18,7 @@
 // computer ends game 
 // computer adds a win to win counter score
 // game restarts again for user
-console.log(words)
+
 var words = ["playstation", "microsoft", "nintendo", "sega", "xbox", "sony", "switch", "pc", "vr", "streaming"];
 
 const maxTries = 6;
@@ -61,23 +61,24 @@ function updateDisplay() {
     }
     document.getElementById("remainingGuesses").innerText = remainingGuesses;
     document.getElementById("guessedLetters").innerText = guessedLetters;
+}; 
+    function processLose() {
     if (remainingGuesses <= 0) {
         document.getElementById("losing-image").style.cssText = "display: block";
         document.getElementById("pressTryAgain").style.cssText = "display :block";
         gameFinished = true;
     }
-};
-
+    }
 function updateWordGuessGameImage() {
     document.getElementById("wordGuessGameImage").src = "assets/images/" + (maxTries - remainingGuesses) + ".jpg";
 };
 
-document.onkeydown = function(event) {
-    if(gameFinished)  {
+document.onkeydown = function (event) {
+    if (gameFinished) {
         resetGame();
         gameFinished = false;
     } else {
-        if(event.keyCode >= 65 && event.keyCode <= 90) {
+        if (event.keyCode >= 65 && event.keyCode <= 90) {
             guess(event.key.toLowerCase());
         }
     }
@@ -86,42 +87,42 @@ document.onkeydown = function(event) {
 function guess(letter) {
     if (remainingGuesses > 0) {
         if (!gameStarts) {
-        gameStarts = true;
+            gameStarts = true;
+        }
+
+        if (guessedLetters.indexOf(letter) === -1) {
+            guessedLetters.push(letter);
+            processGuess(letter);
+        }
+
+
     }
 
-    if (guessedLetters.indexOf(letter) === -1) {
-        guessedLetters.push(letter);
-        processGuess(letter);
-    }
-
-
-}
-
-updateDisplay();
-processWin();
+    updateDisplay();
+    processWin();
 };
 
 function processGuess(letter) {
     var positions = [];
     for (var i = 0; i < wordSelected[wordList].length; i++) {
-        if(wordSelected[wordList][i] === letter) {
+        if (wordSelected[wordList][i] === letter) {
             positions.push(i);
         }
-        }
+    }
 
-        if (positions.length <= 0) {
-            remainingGuesses--;
-            updateWordGuessGameImage();
-        } else {
+    if (positions.length <= 0) {
+        remainingGuesses--;
+        updateWordGuessGameImage();
+    } else {
 
-            for(var i = 0; i < positions.length; i++) {
-                guessingWord[positions[i]] = letter;
-            }
+        for (var i = 0; i < positions.length; i++) {
+            guessingWord[positions[i]] = letter;
         }
+    }
 };
 
 function processWin() {
-    if(guessingWord.indexOf("_") === -1) {
+    if (guessingWord.indexOf("_") === -1) {
         document.getElementById("winning-image").style.cssText = "display: block";
         document.getElementById("pressTryAgain").style.cssText = "display: block";
         wins++;
